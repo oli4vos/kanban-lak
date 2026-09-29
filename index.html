@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f5f6f2" />
+    <meta name="description" content="KANBAN LAK — acties overzichtelijk opvolgen en voortgang meten." />
+    <title>KANBAN LAK — Actievoortgang</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="./" aria-label="KANBAN LAK home">
+          <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+          <span>KANBAN <em>LAK</em></span>
+        </a>
+        <div class="topbar-actions">
+          <span class="sync-state"><span class="live-dot"></span> Lokaal opgeslagen</span>
+          <button class="ghost-button" id="resetBoard" type="button">Reset board</button>
+          <button class="primary-button" id="openAddTask" type="button"><span aria-hidden="true">+</span> Actie toevoegen</button>
+        </div>
+      </header>
+
+      <main>
+        <section class="intro-grid">
+          <div class="intro-copy">
+            <p class="eyebrow">ACTIEOVERZICHT <span>·</span> WEEK 39</p>
+            <h1>Van losse actie<br /><span>naar zichtbaar ritme.</span></h1>
+            <p class="intro-text">Een rustige plek om te zien wat beweegt, wat wacht en welke actie aandacht nodig heeft.</p>
+          </div>
+          <div class="focus-note">
+            <span class="note-label">FOCUS VANDAAG</span>
+            <strong id="focusText">Maak de volgende stap concreet.</strong>
+            <button class="text-button" id="focusAction" type="button">Nieuwe focus kiezen <span aria-hidden="true">↗</span></button>
+          </div>
+        </section>
+
+        <section class="metric-strip" aria-label="Voortgangsoverzicht">
+          <div class="metric"><span>Open acties</span><strong id="openMetric">0</strong></div>
+          <div class="metric"><span>In beweging</span><strong id="progressMetric">0</strong></div>
+          <div class="metric"><span>Geblokkeerd</span><strong id="blockedMetric">0</strong></div>
+          <div class="metric metric-highlight"><span>Afgerond</span><strong id="doneMetric">0%</strong><small id="doneSubmetric">0 van 0 acties</small></div>
+        </section>
+
+        <section class="board-section">
+          <div class="board-toolbar">
+            <div>
+              <p class="eyebrow">WERKSTROOM</p>
+              <h2>Acties in beweging</h2>
+            </div>
+            <div class="toolbar-controls">
+              <label class="search-field"><span aria-hidden="true">⌕</span><input id="searchInput" type="search" placeholder="Zoek actie..." /></label>
+              <select id="ownerFilter" aria-label="Filter op eigenaar"><option value="all">Alle eigenaren</option></select>
+            </div>
+          </div>
+          <div class="board" id="board" aria-live="polite"></div>
+        </section>
+      </main>
+
+      <footer class="footer"><span>KANBAN LAK</span><span>Werk zichtbaar. Houd beweging.</span><span id="lastUpdated"></span></footer>
+    </div>
+
+    <dialog class="task-dialog" id="taskDialog">
+      <form method="dialog" id="taskForm">
+        <div class="dialog-heading"><div><p class="eyebrow">NIEUWE ACTIE</p><h2>Voeg iets toe dat beweegt.</h2></div><button class="icon-button" value="cancel" aria-label="Sluiten">×</button></div>
+        <label>Actie<input id="taskTitle" name="title" required maxlength="80" placeholder="Bijv. offerte opvolgen" /></label>
+        <div class="form-row"><label>Eigenaar<input id="taskOwner" name="owner" required maxlength="30" placeholder="Naam" /></label><label>Deadline<input id="taskDue" name="due" type="date" /></label></div>
+        <label>Notitie<textarea id="taskNote" name="note" rows="3" maxlength="180" placeholder="Wat is de eerstvolgende concrete stap?"></textarea></label>
+        <div class="dialog-actions"><button class="ghost-button" value="cancel">Annuleren</button><button class="primary-button" value="default">Actie opslaan</button></div>
+      </form>
+    </dialog>
+    <div class="toast" id="toast" role="status"></div>
+    <script src="app.js"></script>
+  </body>
+</html>
